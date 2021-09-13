@@ -17,8 +17,7 @@ parameters:
   default: true
 
 variables:
-- name: stageCDependsOn
-  value: B2
+  stageCDependsOn: B2
 # ${{ if eq(parameters.runStageB, false) }}: 
 #   - name: stageCDependsOn
 #     value: A
