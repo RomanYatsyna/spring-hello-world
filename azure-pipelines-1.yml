@@ -3,10 +3,6 @@ pool:
 trigger: none
 
 parameters:
-- name: runStageA
-  displayName: Run Stage A
-  type: boolean
-  default: true
 - name: runStageB
   displayName: Run Stage B
   type: boolean
@@ -21,13 +17,12 @@ parameters:
   default: true
 
 stages:
-- ${{ if eq(parameters.runStageA, true) }}:
-  - stage: A
-    displayName: Stage A
-    jobs:
-    - job: JobA
-      steps:
-      - bash: echo "Job A"
+- stage: A
+  displayName: Stage A
+  jobs:
+  - job: JobA
+    steps:
+    - bash: echo "Job A"
 
 - ${{ if eq(parameters.runStageB, true) }}:
   - stage: B
