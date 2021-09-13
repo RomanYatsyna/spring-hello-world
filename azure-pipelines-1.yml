@@ -2,9 +2,18 @@ pool:
   vmImage: ubuntu-latest
 
 parameters:
-  runStageA: true
-  runStageB: true
-  runStageC: true
+- name: runStageA
+  displayName: Run Stage A
+  type: boolean
+  default: true
+- name: runStageB
+  displayName: Run Stage B
+  type: boolean
+  default: true
+- name: runStageC
+  displayName: Run Stage C
+  type: boolean
+  default: true
 
 stages:
 - stage: A
