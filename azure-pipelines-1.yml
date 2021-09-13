@@ -54,10 +54,8 @@ stages:
   - stage: C1
     displayName: Stage C1
     dependsOn:
-      ${{ if eq(parameters.runStageB, false) }}: 
-        - A
-      ${{ if eq(parameters.runStageB, true) }}: 
-        - B2
+      - ${{ if eq(parameters.runStageB, false) }}: A
+      - ${{ if eq(parameters.runStageB, true) }}: B2
     jobs:
     - job: JobC1
       steps:
