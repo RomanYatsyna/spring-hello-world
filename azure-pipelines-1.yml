@@ -16,6 +16,12 @@ parameters:
   type: boolean
   default: true
 
+variables:
+- name: stageCDependsOn
+  value: 
+    ${{ if eq(parameters.runStageB, true) }}: B2
+    ${{ if eq(parameters.runStageB, false) }}: A
+
 stages:
 - stage: A
   displayName: Stage A
@@ -25,30 +31,48 @@ stages:
     - bash: echo "Job A"
 
 - ${{ if eq(parameters.runStageB, true) }}:
-  - stage: B
-    displayName: Stage B
+  - stage: B1
+    displayName: Stage B1
     dependsOn:
     - A
     jobs:
-    - job: JobB
+    - job: JobB1
       steps:
-      - bash: echo "Job B"
+      - bash: echo "Job B1"
+
+  - stage: B2
+    displayName: Stage B2
+    dependsOn:
+    - B1
+    jobs:
+    - job: JobB2
+      steps:
+      - bash: echo "Job B2"
 
 - ${{ if eq(parameters.runStageC, true) }}:
-  - stage: C
-    displayName: Stage C
+  - stage: C1
+    displayName: Stage C1
     dependsOn:
-    - B
+    - $(stageCDependsOn)
     jobs:
-    - job: JobC
+    - job: JobC1
       steps:
-      - bash: echo "Job C"
+      - bash: echo "Job C1"
+
+  - stage: C2
+    displayName: Stage C2
+    dependsOn:
+    - C1
+    jobs:
+    - job: JobC2
+      steps:
+      - bash: echo "Job C2"
 
 - ${{ if eq(parameters.runStageD, true) }}:
   - stage: D
     displayName: Stage D
     dependsOn:
-    - C
+    - C2
     jobs:
     - job: JobD
       steps:
