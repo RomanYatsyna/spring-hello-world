@@ -17,18 +17,25 @@ parameters:
 
 stages:
 - stage: A
+  displayName: Stage A
   jobs:
   - job: JobA
     steps:
     - bash: echo "Job A"
 
 - stage: B
+  displayName: Stage B
+  dependsOn:
+  - A
   jobs:
   - job: JobB
     steps:
     - bash: echo "Job B"
 
 - stage: C
+  displayName: Stage C
+  dependsOn:
+  - B
   jobs:
   - job: JobC
     steps:
