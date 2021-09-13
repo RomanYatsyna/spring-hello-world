@@ -53,8 +53,13 @@ stages:
 - ${{ if eq(parameters.runStageC, true) }}:
   - stage: C1
     displayName: Stage C1
+    variables:
+    - name: stageCDependsOn
+      value: 
+      ${{ if eq(parameters.runStageB, false) }}: A
+      ${{ if eq(parameters.runStageB, true) }}: B2
     dependsOn:
-    - B2
+    - $(stageCDependsOn)
     jobs:
     - job: JobC1
       steps:
